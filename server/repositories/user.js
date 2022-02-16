@@ -15,7 +15,15 @@ exports.getById = async(id) => {
     return res;
 }
 
-exports.createUser = (data) => {
+exports.create = async(data) => {
     let user = new User(data);
-    user.save();
+    await user.save();
+}
+
+exports.update = async(id, data) => {
+    await User.replaceOne({ _id: id }, data)
+}
+
+exports.deleteOne = async(id) => {
+    await User.deleteOne({ _id: id })
 }
