@@ -10,15 +10,15 @@ import swaggerJsDoc from "swagger-jsdoc";
 import { CONNECTION_STRING, SWAGGER_OPTIONS } from '../config/config';
 
 //load models
-import { User } from '../models/user'
-import { Recipe } from '../models/recipe'
-import { Review } from '../models/review'
+import { User } from '../model/user'
+import { Recipe } from '../model/recipe'
+import { Review } from '../model/review'
 
 //load routes
-import indexRoute from '../routes';
-import usersRoute from '../routes/users';
-import recipesRoute from '../routes/recipe';
-import reviewssRoute from '../routes/review'
+import indexRoute from '../route';
+import usersRoute from '../route/users';
+import recipesRoute from '../route/recipe';
+import reviewssRoute from '../route/review'
 
 connect(CONNECTION_STRING)
 

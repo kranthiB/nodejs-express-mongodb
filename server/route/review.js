@@ -2,7 +2,7 @@
 
 import { Router } from 'express';
 const router = Router();
-import { getAll, getById, create, update, deleteOne } from '../controllers/review';
+import { getAll, getById, create, update, deleteOne } from '../controller/review';
 
 router.get('', getAll)
 router.get('/:id', getById)

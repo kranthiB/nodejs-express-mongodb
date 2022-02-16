@@ -1,6 +1,6 @@
 'use strict'
 
-import { getAll, getById, create, update, deleteOne } from '../repositories/review';
+import { getAll, getById, create, update, deleteOne } from '../repository/review';
 
 exports.getAll = async(req, res, next) => {
     try {

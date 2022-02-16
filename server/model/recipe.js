@@ -33,7 +33,11 @@ const recipeSchema = new Schema({
     },
     ingredients: {
         type: [ingredientSchema]
+    },
+    reviews: {
+        type: [_Schema.Types.ObjectId]
     }
+    
 });
 
 const collectionName = 'recipe'

@@ -2,7 +2,7 @@
 
 import { Router } from 'express';
 const router = Router();
-import { getAll, getById, create, update, deleteOne } from '../controllers/recipe';
+import { getAll, getById, create, update, deleteOne } from '../controller/recipe';
 
 router.get('', getAll)
 router.get('/:id', getById)

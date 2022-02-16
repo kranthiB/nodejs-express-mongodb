@@ -2,7 +2,7 @@
 
 import { Router } from 'express';
 const router = Router();
-import { getAll, getById, create, update, deleteOne } from '../controllers/user';
+import { getAll, getById, create, update, deleteOne } from '../controller/user';
 
 router.get('', getAll)
 router.get('/:id', getById)
