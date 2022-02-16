@@ -11,10 +11,14 @@ import { CONNECTION_STRING, SWAGGER_OPTIONS } from '../config/config';
 
 //load models
 import { User } from '../models/user'
+import { Recipe } from '../models/recipe'
+import { Review } from '../models/review'
 
 //load routes
 import indexRoute from '../routes';
 import usersRoute from '../routes/users';
+import recipesRoute from '../routes/recipe';
+import reviewssRoute from '../routes/review'
 
 connect(CONNECTION_STRING)
 
@@ -24,6 +28,8 @@ app.use(logger('dev'));
 
 app.use('/api/', indexRoute);
 app.use('/api/users', usersRoute);
+app.use('/api/recipes', recipesRoute);
+app.use('/api/recipes/:recipeId/reviews', reviewssRoute);
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(SWAGGER_OPTIONS)));
 
