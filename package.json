@@ -1,0 +1,61 @@
+{
+  "name": "rest-api",
+  "version": "1.0.0",
+  "description": "Server-side API Design using Node.js, Express.js, MongoDB, and Mongoose",
+  "main": "server/app.js",
+  "nodemonConfig": {
+    "exec": "npm run dev",
+    "watch": [
+      "server/*"
+    ],
+    "ignore": [
+      "**/__tests__/**",
+      "*.test.js",
+      "*.spec.js"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "scripts": {
+    "start": "npm run prod",
+    "build": "npm-run-all clean transpile",
+    "server": "node ./dist-server/bin/www",
+    "dev": "npm-run-all build server",
+    "prod": "npm-run-all build server",
+    "transpile": "babel ./server --out-dir dist-server",
+    "clean": "rimraf dist-server",
+    "watch:dev": "nodemon",
+    "format": "prettier --write \"server/**/*.js\"",
+    "format:check": "prettier --list-different \"server/**/*.js\"",
+    "lint": "eslint \"server/**/*.js\"",
+    "lint:fix": "eslint --fix \"server/**/*.js\""
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "core-js": "^3.21.0",
+    "debug": "^4.3.3",
+    "express": "^4.17.2",
+    "mongoose": "^6.2.1",
+    "morgan": "^1.10.0",
+    "regenerator-runtime": "^0.13.9",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.3.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.3",
+    "@babel/core": "^7.17.4",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "eslint": "^8.9.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "nodemon": "^2.0.15",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.5.1",
+    "rimraf": "^3.0.2"
+  }
+}
