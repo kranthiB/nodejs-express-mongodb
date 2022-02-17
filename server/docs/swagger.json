@@ -1,0 +1,595 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Server-side API Design using Node.js, Express.js, MongoDB, and Mongoose",
+    "version": "1.0.0",
+    "title": "Server-side API",
+    "contact": {
+      "email": "nobody@cares.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:9000",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "users",
+      "description": "Users information"
+    },
+    {
+      "name": "recipes",
+      "description": "Recipes information"
+    },
+    {
+      "name": "reviews",
+      "description": "Reviews information"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Add new user",
+        "description": "",
+        "operationId": "addUser",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User information",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User saved successfully"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Get all users",
+        "description": "",
+        "operationId": "getAllUsers",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful retrieved users",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "put": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Update user details",
+        "description": "",
+        "operationId": "updateUser",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "type": "string",
+            "description": "ID of user",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User information on",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated successfully"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Get user details",
+        "description": "",
+        "operationId": "getUserDetails",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "type": "string",
+            "description": "ID of user",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved user details successfully",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Delete user",
+        "description": "",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "type": "string",
+            "description": "ID of user",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/recipes": {
+      "post": {
+        "tags": [
+          "recipes"
+        ],
+        "summary": "Add new recipe",
+        "description": "",
+        "operationId": "addRecipe",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Recipe information",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SaveOrUpdateRecipe"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Recipe saved successfully"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "recipes"
+        ],
+        "summary": "Get all recipes",
+        "description": "",
+        "operationId": "getAllRecipes",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful retrived recipes",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/GetRecipe"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/recipes/{recipeId}": {
+      "put": {
+        "tags": [
+          "recipes"
+        ],
+        "summary": "Update recipe details",
+        "description": "",
+        "operationId": "updateRecipe",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "type": "string",
+            "description": "ID of recipe",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Recipe information",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SaveOrUpdateRecipe"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Recipe updated successfully"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "recipes"
+        ],
+        "summary": "Get recipe details",
+        "description": "",
+        "operationId": "getRecipeDetails",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "type": "string",
+            "description": "ID of recipe",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved recipe details successfully",
+            "schema": {
+              "$ref": "#/definitions/GetRecipe"
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "recipes"
+        ],
+        "summary": "Delete recipe",
+        "description": "",
+        "operationId": "deleteRecipe",
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "type": "string",
+            "description": "ID of recipe",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/recipes/{recipeId}/reviews": {
+      "post": {
+        "tags": [
+          "reviews"
+        ],
+        "summary": "Add new review",
+        "description": "",
+        "operationId": "addReview",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "type": "string",
+            "description": "ID of recipe",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Review information",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Review"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Review saved successfully"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/recipes/{recipeId}/reviews/{reviewId}": {
+      "put": {
+        "tags": [
+          "reviews"
+        ],
+        "summary": "Update review details",
+        "description": "",
+        "operationId": "updateReview",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "type": "string",
+            "description": "ID of recipe",
+            "required": true
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "type": "string",
+            "description": "ID of review",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Review information",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Review"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Review updated successfully"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "reviews"
+        ],
+        "summary": "Delete review",
+        "description": "",
+        "operationId": "deleteReview",
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "type": "string",
+            "description": "ID of recipe",
+            "required": true
+          },
+          {
+            "name": "reviewId",
+            "in": "path",
+            "type": "string",
+            "description": "ID of review",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "object",
+          "properties": {
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "SaveOrUpdateRecipe": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "prepTime": {
+          "type": "integer"
+        },
+        "cookTime": {
+          "type": "integer"
+        },
+        "directions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ingredients": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "GetRecipe": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "prepTime": {
+          "type": "integer"
+        },
+        "cookTime": {
+          "type": "integer"
+        },
+        "directions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ingredients": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "reviews": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "rating": {
+                "type": "integer"
+              },
+              "description": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              },
+              "user": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Review": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "rating": {
+          "type": "integer"
+        },
+        "user": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

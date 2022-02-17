@@ -1,6 +1,5 @@
 'use strict'
 
-import { Int32 } from 'mongodb';
 import { Schema as _Schema, model } from 'mongoose';
 const Schema = _Schema;
 
