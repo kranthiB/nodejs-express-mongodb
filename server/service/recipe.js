@@ -10,6 +10,7 @@ let getRecipeReview = async(reviewId) => {
     recipeReview.description = review.description
     recipeReview.rating = review.rating
     recipeReview.date = review.date
+    recipeReview._id = reviewId
     let userDetail = await getByUserId(review.userId)
     recipeReview.user = userDetail.username
     return recipeReview
