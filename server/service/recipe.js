@@ -2,7 +2,7 @@
 
 import { getAll, getById, create, update, deleteOne } from '../repository/recipe';
 import { getById as getByUserId } from '../repository/user';
-import { getById as getByReviewId } from '../repository/review';
+import { getById as getByReviewId, deleteOne as deleteReviewById } from '../repository/review';
 
 let getRecipeReview = async(reviewId) => {
     let recipeReview = {}
@@ -55,9 +55,15 @@ exports.create = async(data) => {
 }
 
 exports.update = async(recipeId, data) => {
+    let recipe =  await getById(recipeId);
+    data.reviews = recipe.reviews
     await update(recipeId, data);
 }
 
 exports.deleteOne = async(recipeId) => {
+    let recipe =  await getById(recipeId);
+    for (let i=0; i< recipe.reviews.length; i++) {
+        await deleteReviewById(recipe.reviews[i])
+    }
     await deleteOne(recipeId);
 }
