@@ -4,18 +4,17 @@ import { model } from 'mongoose';
 const Recipe = model('Recipe');
 
 exports.getAll = async() => {
-    let res = await Recipe.find({});
-    return res;
+    return await Recipe.find({});
 }
 
 exports.getById = async(id) => {
-    let res = await Recipe.findById(id).exec();
-    return res;
+    return await Recipe.findById(id).exec();
 }
 
 exports.create = async(data) => {
     let recipe = new Recipe(data);
-    await recipe.save();
+    let createdRecipe = await recipe.save();
+    return createdRecipe._id
 }
 
 exports.update = async(id, data) => {
@@ -24,4 +23,10 @@ exports.update = async(id, data) => {
 
 exports.deleteOne = async(id) => {
     await Recipe.deleteOne({ _id: id })
+}
+
+exports.addReviewToRecipe = async(id, reviewId) => {
+    let recipe = await Recipe.findById(id).exec();
+    recipe.reviews.push(reviewId)    
+    await Recipe.replaceOne({ _id: recipe._id }, recipe)
 }

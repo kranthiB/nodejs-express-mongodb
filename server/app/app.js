@@ -18,7 +18,6 @@ import { Review } from '../model/review'
 import indexRoute from '../route';
 import usersRoute from '../route/users';
 import recipesRoute from '../route/recipe';
-import reviewssRoute from '../route/review'
 
 connect(CONNECTION_STRING)
 
@@ -29,7 +28,6 @@ app.use(logger('dev'));
 app.use('/api/', indexRoute);
 app.use('/api/users', usersRoute);
 app.use('/api/recipes', recipesRoute);
-app.use('/api/recipes/:recipeId/reviews', reviewssRoute);
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(SWAGGER_OPTIONS)));
 

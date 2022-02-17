@@ -15,7 +15,8 @@ exports.getById = async(id) => {
 
 exports.create = async(data) => {
     let review = new Review(data);
-    await review.save();
+    let createdReview = await review.save();
+    return createdReview._id;
 }
 
 exports.update = async(id, data) => {
