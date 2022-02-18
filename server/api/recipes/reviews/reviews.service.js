@@ -7,7 +7,7 @@ import {
   replaceReviews,
   getById as getByRecipeId,
 } from "../recipes.repository";
-import { InvalidAttribute, ResourceNotExists } from "../common.exception";
+import { InvalidAttribute, ResourceNotExists } from "../../common.exception";
 
 const getReview = async (recipeId, data) => {
   const user = await getByUserName(data.user);
