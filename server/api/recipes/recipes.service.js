@@ -13,19 +13,21 @@ import {
   deleteOne as deleteReviewById,
 } from "./reviews/reviews.repository";
 
-let getRecipeReview = async (reviewId) => {
-  let recipeReview = {};
-  let review = await getByReviewId(reviewId);
+import { InvalidAttribute, ResourceNotExists } from "../common.exception";
+
+const getRecipeReview = async (reviewId) => {
+  const recipeReview = {};
+  const review = await getByReviewId(reviewId);
   recipeReview.description = review.description;
   recipeReview.rating = review.rating;
   recipeReview.date = review.date;
   recipeReview._id = reviewId;
-  let userDetail = await getByUserId(review.userId);
+  const userDetail = await getByUserId(review.userId);
   recipeReview.user = userDetail.username;
   return recipeReview;
 };
 
-let getRecipe = async (recipe) => {
+const getRecipe = async (recipe) => {
   let modifiedRecipe = {};
   modifiedRecipe.ingredients = recipe.ingredients;
   modifiedRecipe.directions = recipe.directions;
@@ -35,7 +37,7 @@ let getRecipe = async (recipe) => {
   modifiedRecipe.description = recipe.description;
   modifiedRecipe.name = recipe.name;
   modifiedRecipe._id = recipe._id;
-  let modifiedRecipeReviews = [];
+  const modifiedRecipeReviews = [];
   for (let j = 0; j < recipe.reviews.length; j++) {
     let modifiedRecipeReview = await getRecipeReview(recipe.reviews[j]);
     modifiedRecipeReviews.push(modifiedRecipeReview);
@@ -44,36 +46,79 @@ let getRecipe = async (recipe) => {
   return modifiedRecipe;
 };
 
+const validateRecipe = async (recipe) => {
+  if (!recipe) {
+    throw new InvalidAttribute("Recipe required");
+  }
+  if (!recipe.name) {
+    throw new InvalidAttribute("Recipe name required");
+  }
+  if (!recipe.description) {
+    throw new InvalidAttribute("Recipe description required");
+  }
+  if (!recipe.image) {
+    throw new InvalidAttribute("Recipe image required");
+  }
+  if (!recipe.prepTime) {
+    throw new InvalidAttribute("Recipe prepTime required");
+  }
+  if (!recipe.cookTime) {
+    throw new InvalidAttribute("Recipe cookTime required");
+  }
+  if (!recipe.directions) {
+    throw new InvalidAttribute("Recipe directions required");
+  }
+  if (!recipe.ingredients) {
+    throw new InvalidAttribute("Recipe ingredients required");
+  }
+};
+
 exports.getAll = async () => {
-  let recipes = await getAll();
-  let modifiedRecipes = [];
+  const recipes = await getAll();
+  const modifiedRecipes = [];
   for (let i = 0; i < recipes.length; i++) {
-    let modifiedRecipe = await getRecipe(recipes[i]);
+    const modifiedRecipe = await getRecipe(recipes[i]);
     modifiedRecipes.push(modifiedRecipe);
   }
   return modifiedRecipes;
 };
 
 exports.getById = async (recipeId) => {
-  let recipe = await getById(recipeId);
-  return await getRecipe(recipe);
+  const existingRecipe = await getById(recipeId);
+  if (existingRecipe === null) {
+    throw new ResourceNotExists("Recipe - " + recipeId + " not exists");
+  } else {
+    return await getRecipe(existingRecipe);
+  }
 };
 
 exports.create = async (data) => {
-  console.log("**** Enetroed Service Create  ****");
+  delete data.reviews;
+  delete data.review;
+  await validateRecipe(data);
   await create(data);
 };
 
 exports.update = async (recipeId, data) => {
-  let recipe = await getById(recipeId);
-  data.reviews = recipe.reviews;
-  await update(recipeId, data);
+  const existingRecipe = await getById(recipeId);
+  if (existingRecipe === null) {
+    throw new ResourceNotExists("Recipe - " + recipeId + " not exists");
+  } else {
+    await validateRecipe(data);
+    data.reviews = existingRecipe.reviews;
+    await update(recipeId, data);
+  }
 };
 
 exports.deleteOne = async (recipeId) => {
-  let recipe = await getById(recipeId);
-  for (let i = 0; i < recipe.reviews.length; i++) {
-    await deleteReviewById(recipe.reviews[i]);
+  const existingRecipe = await getById(recipeId);
+  if (existingRecipe === null) {
+    throw new ResourceNotExists("Recipe - " + recipeId + " not exists");
+  } else {
+    const recipe = await getById(recipeId);
+    for (let i = 0; i < recipe.reviews.length; i++) {
+      await deleteReviewById(recipe.reviews[i]);
+    }
+    await deleteOne(recipeId);
   }
-  await deleteOne(recipeId);
 };

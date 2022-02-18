@@ -1,19 +1,22 @@
 "use strict";
 
 import { Recipe } from "./recipes.model";
+import { Types } from "mongoose";
 
 exports.getAll = async () => {
   return await Recipe.find({});
 };
 
 exports.getById = async (id) => {
-  return await Recipe.findById(id).exec();
+  if (Types.ObjectId.isValid(id)) {
+    return await Recipe.findById(id).exec();
+  } else {
+    return null;
+  }
 };
 
 exports.create = async (data) => {
-  console.log("**** Enetroed Repository Create  ****");
   let createdRecipe = await Recipe.create(data);
-  console.log("**** Recipe Created  ****");
   return createdRecipe._id;
 };
 

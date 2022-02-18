@@ -1,6 +1,7 @@
 "use strict";
 
 import { Review } from "./reviews.model";
+import { Types } from "mongoose";
 
 exports.getAll = async () => {
   let res = await Review.find({});
@@ -8,8 +9,11 @@ exports.getAll = async () => {
 };
 
 exports.getById = async (id) => {
-  let res = await Review.findById(id).exec();
-  return res;
+  if (Types.ObjectId.isValid(id)) {
+    return await Review.findById(id).exec();
+  } else {
+    return null;
+  }
 };
 
 exports.create = async (data) => {

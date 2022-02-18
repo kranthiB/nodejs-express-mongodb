@@ -7,8 +7,8 @@ exports.getAll = async (req, res, next) => {
     let data = await getAll(req.params.recipeId);
     res.status(200).send(data);
   } catch (ex) {
-    console.log(ex);
-    res.status(500).send({ message: "Failed to retrieve all reviews" });
+    console.error(ex);
+    res.status(500).send({ message: ex.message });
   }
 };
 
@@ -17,8 +17,8 @@ exports.getById = async (req, res, next) => {
     let data = await getById(req.params.recipeId, req.params.reviewId);
     res.status(200).send(data);
   } catch (ex) {
-    console.log(ex);
-    res.status(500).send({ message: "Failed to retrieve reviews details" });
+    console.error(ex);
+    res.status(500).send({ message: ex.message });
   }
 };
 
@@ -27,8 +27,8 @@ exports.create = async (req, res, next) => {
     await create(req.params.recipeId, req.body);
     res.status(201).send({ message: "Review saved successfully" });
   } catch (ex) {
-    console.log(ex);
-    res.status(500).send({ message: "Failed to save Review" });
+    console.error(ex);
+    res.status(500).send({ message: ex.message });
   }
 };
 
@@ -37,8 +37,8 @@ exports.update = async (req, res, next) => {
     await update(req.params.recipeId, req.params.reviewId, req.body);
     res.status(200).send({ message: "Review updated successfully" });
   } catch (ex) {
-    console.log(ex);
-    res.status(500).send({ message: "Failed to update Review" });
+    console.error(ex);
+    res.status(500).send({ message: ex.message });
   }
 };
 
@@ -47,7 +47,7 @@ exports.deleteOne = async (req, res, next) => {
     await deleteOne(req.params.recipeId, req.params.reviewId);
     res.status(204).send({ message: "Review deleted successfully" });
   } catch (ex) {
-    console.log(ex);
-    res.status(500).send({ message: "Failed to update Review" });
+    console.error(ex);
+    res.status(500).send({ message: ex.message });
   }
 };
