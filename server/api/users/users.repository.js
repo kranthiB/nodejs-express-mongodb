@@ -8,6 +8,7 @@ exports.getAll = async () => {
 };
 
 exports.getById = async (id) => {
+  console.log("in repository getById" + id);
   if (Types.ObjectId.isValid(id)) {
     return await User.findById(id).exec();
   } else {

@@ -24,8 +24,11 @@ exports.getById = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
   try {
-    await create(req.params.recipeId, req.body);
-    res.status(201).send({ message: "Review saved successfully" });
+    const id = await create(req.params.recipeId, req.body);
+    res.status(201).send({
+      message: "Review by" + req.body.user + " saved successfully",
+      id: id,
+    });
   } catch (ex) {
     console.error(ex);
     res.status(500).send({ message: ex.message });

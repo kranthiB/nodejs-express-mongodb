@@ -29,10 +29,11 @@ exports.getById = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
   try {
-    await create(req.body);
-    res
-      .status(201)
-      .send({ message: "Recipe " + req.body.name + " saved successfully" });
+    const id = await create(req.body);
+    res.status(201).send({
+      message: "Recipe " + req.body.name + " created successfully",
+      id: id,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: error.message });

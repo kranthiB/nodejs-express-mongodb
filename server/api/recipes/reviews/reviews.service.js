@@ -37,6 +37,7 @@ exports.create = async (recipeId, data) => {
   await getReview(recipeId, data);
   const reviewId = await create(data);
   await addReviewToRecipe(recipeId, reviewId);
+  return reviewId;
 };
 
 exports.update = async (recipeId, reviewId, data) => {
