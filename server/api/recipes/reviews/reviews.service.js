@@ -1,6 +1,6 @@
 "use strict";
 
-import { create, update, deleteOne } from "./reviews.repository";
+import { create, update, deleteOne, getById } from "./reviews.repository";
 import { getByUserName } from "../../users/users.repository";
 import {
   addReviewToRecipe,
@@ -14,10 +14,15 @@ const getReview = async (recipeId, data) => {
   if (user === null) {
     throw new ResourceNotExists("User - " + data.user + " not exists");
   } else {
-    data.userId = user._id;
-    data.recipeId = recipeId;
-    data.date = new Date();
-    delete data.user;
+    const existingRecipe = await getByRecipeId(recipeId);
+    if (existingRecipe === null) {
+      throw new ResourceNotExists("Recipe - " + recipeId + " not exists");
+    } else {
+      data.userId = user._id;
+      data.recipeId = recipeId;
+      data.date = new Date();
+      delete data.user;
+    }
   }
 };
 
@@ -43,7 +48,12 @@ exports.create = async (recipeId, data) => {
 exports.update = async (recipeId, reviewId, data) => {
   await validateReview(data);
   await getReview(recipeId, data);
-  await update(reviewId, data);
+  const existingReview = await getById(reviewId);
+  if (existingReview === null) {
+    throw new ResourceNotExists("Review - " + reviewId + " not exists");
+  } else {
+    await update(reviewId, data);
+  }
 };
 
 exports.deleteOne = async (recipeId, reviewId) => {

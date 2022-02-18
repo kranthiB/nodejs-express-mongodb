@@ -96,7 +96,7 @@ exports.create = async (data) => {
   delete data.reviews;
   delete data.review;
   await validateRecipe(data);
-  await create(data);
+  return await create(data);
 };
 
 exports.update = async (recipeId, data) => {
