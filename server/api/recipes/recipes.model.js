@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 let Schema = mongoose.Schema;
 
 const ingredientSchema = new Schema({
@@ -38,5 +38,5 @@ const recipeSchema = new Schema({
   },
 });
 
-let Recipe = mongoose.model('Recipe', recipeSchema);
+let Recipe = mongoose.model("Recipe", recipeSchema);
 export { Recipe };

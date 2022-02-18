@@ -1,12 +1,12 @@
-'use strict';
+"use strict";
 
-import { create, update, deleteOne } from './reviews.repository';
-import { getByUserName } from '../../users/users.repository';
+import { create, update, deleteOne } from "./reviews.repository";
+import { getByUserName } from "../../users/users.repository";
 import {
   addReviewToRecipe,
   replaceReviews,
   getById as getByRecipeId,
-} from '../recipes.repository';
+} from "../recipes.repository";
 
 let getReview = async (recipeId, data) => {
   let user = await getByUserName(data.user);

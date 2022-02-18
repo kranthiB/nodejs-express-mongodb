@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 import {
   getAll,
@@ -6,12 +6,12 @@ import {
   create,
   update,
   deleteOne,
-} from './recipes.repository';
-import { getById as getByUserId } from '../users/users.repository';
+} from "./recipes.repository";
+import { getById as getByUserId } from "../users/users.repository";
 import {
   getById as getByReviewId,
   deleteOne as deleteReviewById,
-} from './reviews/reviews.repository';
+} from "./reviews/reviews.repository";
 
 let getRecipeReview = async (reviewId) => {
   let recipeReview = {};
@@ -60,7 +60,7 @@ exports.getById = async (recipeId) => {
 };
 
 exports.create = async (data) => {
-  console.log('**** Enetroed Service Create  ****');
+  console.log("**** Enetroed Service Create  ****");
   await create(data);
 };
 

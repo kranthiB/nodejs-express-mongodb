@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-import { Recipe } from './recipes.model';
+import { Recipe } from "./recipes.model";
 
 exports.getAll = async () => {
   return await Recipe.find({});
@@ -11,9 +11,9 @@ exports.getById = async (id) => {
 };
 
 exports.create = async (data) => {
-  console.log('**** Enetroed Repository Create  ****');
+  console.log("**** Enetroed Repository Create  ****");
   let createdRecipe = await Recipe.create(data);
-  console.log('**** Recipe Created  ****');
+  console.log("**** Recipe Created  ****");
   return createdRecipe._id;
 };
 

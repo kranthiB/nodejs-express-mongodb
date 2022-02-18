@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-import { Review } from './reviews.model';
+import { Review } from "./reviews.model";
 
 exports.getAll = async () => {
   let res = await Review.find({});

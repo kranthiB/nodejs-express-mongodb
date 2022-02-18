@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 let Schema = mongoose.Schema;
 
 const reviewSchema = new Schema({
@@ -21,5 +21,5 @@ const reviewSchema = new Schema({
   },
 });
 
-let Review = mongoose.model('Review', reviewSchema);
+let Review = mongoose.model("Review", reviewSchema);
 export { Review };
