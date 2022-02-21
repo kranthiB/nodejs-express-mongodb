@@ -9,7 +9,7 @@ exports.getAll = async () => {
 
 exports.getById = async (id) => {
   if (Types.ObjectId.isValid(id)) {
-    return await User.findById(id);
+    return await User.findById(id).exec();
   } else {
     return null;
   }
