@@ -14,7 +14,8 @@ exports.getAll = async (req, res, next) => {
 
 exports.getById = async (req, res, next) => {
   try {
-    return await getById(req.params.id);
+    const data =  await getById(req.params.id);
+    res.status(200).send(data);
   } catch (error) {
     console.error(error);
     const errorName = error.name;
